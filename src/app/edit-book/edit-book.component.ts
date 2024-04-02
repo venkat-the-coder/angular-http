@@ -3,6 +3,8 @@ import { ActivatedRoute } from '@angular/router';
 
 import { Book } from '../models/book';
 import { DataService } from '../core/data.service';
+import { OldBook } from '../models/oldBook';
+
 
 @Component({
   selector: 'app-edit-book',
@@ -12,13 +14,17 @@ import { DataService } from '../core/data.service';
 export class EditBookComponent implements OnInit {
 
   selectedBook!: Book;
+  expectedBook!:OldBook;
 
   constructor(private route: ActivatedRoute,
               private dataService: DataService) { }
 
   ngOnInit() {
     let bookID: number = parseInt(this.route.snapshot.params['id']);
-    this.selectedBook = this.dataService.getBookById(bookID);
+    this.dataService.getBookById(bookID).subscribe(
+      (data:Book) => this.selectedBook = data,
+      (err:any) => console.log(err)
+    );
   }
 
   setMostPopular(): void {

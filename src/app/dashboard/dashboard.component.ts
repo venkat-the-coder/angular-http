@@ -21,14 +21,15 @@ export class DashboardComponent implements OnInit {
               private title: Title) { }
   
   ngOnInit() {
-    this.dataService
-      .getAllBooks()
-      .subscribe((data: Book[]) => (this.allBooks = data));
+    this.dataService.getAllBooks().subscribe(
+      (data: Book[]) => (this.allBooks = data),
+      (err: any) => console.log(err)
+    );
 
     this.dataService
       .getAllReaders()
       .subscribe((data: Reader[]) => (this.allReaders = data));
-
+ 
     this.mostPopularBook = this.dataService.mostPopularBook;
 
     this.title.setTitle(`Book Tracker`);

@@ -4,8 +4,9 @@ import { allBooks, allReaders } from '../data';
 import { Reader } from '../models/reader';
 import { Book } from "../models/book";
 import { BookTrackerError } from '../models/book-tracker-error';
-import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Observable, map, tap } from 'rxjs';
+import { OldBook } from '../models/oldBook';
 @Injectable({
   providedIn: 'root'
 })
@@ -31,7 +32,22 @@ export class DataService {
      return this._http.get<Book[]>('/api/books');
   }
 
-  getBookById(id: number): Book {
-    return allBooks.find(book => book.bookID === id);
+  getBookById(id: number): Observable<Book> {
+    let getHeaders: HttpHeaders = new HttpHeaders(
+      {
+        'Accept':'application/json',
+        'Authorization':'my-token'
+      }
+    );
+
+    return  this._http.get<Book>(`/api/books/${id}`,{ headers:getHeaders });
   }  
+
+
+  getOldBookById(id: number): Observable<OldBook> {
+    return  this._http.get<Book>(`/api/books/${id}`).pipe(
+      map(a => <OldBook>{bookTitle : a.title , publishedYear:a.publicationYear}),
+      tap(book => console.log(book))
+    );
+  } 
 }
