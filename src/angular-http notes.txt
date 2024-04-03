@@ -1,0 +1,27 @@
+topics learned 
+1. rest api
+2. http client module
+3. http client
+4. mainting the data handling in seperate service 
+5. different http action verbs
+6. how to pass values into each action verbs
+7. each action verb has return type post<T> to get the response
+8. each service method will return the observable observable<T>
+9. each servie method response can be transaformed into another form via pipes and rxja operators
+10. we need to subcribe the obseravable in component or whereever using the service method
+11. we can pass three different call back in subscribe one is success ,error and completion 
+
+
+Advanced HTTP request and error handling
+
+Error Handling:
+using catch error
+
+resolvers:
+Resolvers are used to fetch data before routing to another route
+resolvers will fetch the data then only it will activate the next route
+its needs to be configured in routing module and retrived as snapshot data in component
+
+
+
+
