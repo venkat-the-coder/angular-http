@@ -23,5 +23,21 @@ resolvers will fetch the data then only it will activate the next route
 its needs to be configured in routing module and retrived as snapshot data in component
 
 
+Interceptors
+
+1. they are used to manipulate the request before sending to the server
+2. and also manipulate the same before receiving from the server
+3. it actually implements the http interceptor interface like resolve ,canactivate
+
+why using interceptor?
+
+1. adding specific headers to all the request irresepctive of what type it is
+2. logging the errors or any kind of informations
+3. reporting progress events
+4. client side caching 
+
+ { provide: HTTP_INTERCEPTORS , useClass:ContentTypeInterceptor , multi:true},
+    { provide: HTTP_INTERCEPTORS , useClass:LogResponseInterceptor , multi:true}
 
 
+Configuring the Interceptors

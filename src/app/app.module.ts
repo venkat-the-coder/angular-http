@@ -10,7 +10,9 @@ import { EditReaderComponent } from './edit-reader/edit-reader.component';
 import { AddReaderComponent } from './add-reader/add-reader.component';
 import { BookTrackerErrorHandlerService } from './core/book-tracker-error-handler.service';
 import { FormsModule } from '@angular/forms';
-import {HttpClientModule} from '@angular/common/http'
+import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http'
+import { ContentTypeInterceptor } from './core/Interceptors/content-interceptor';
+import { LogResponseInterceptor } from './core/Interceptors/logresponse-interceptor';
 
 @NgModule({
   declarations: [
@@ -19,17 +21,14 @@ import {HttpClientModule} from '@angular/common/http'
     DashboardComponent,
     EditBookComponent,
     EditReaderComponent,
-    AddReaderComponent
+    AddReaderComponent,
   ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    FormsModule,
-    HttpClientModule
-  ],
+  imports: [BrowserModule, AppRoutingModule, FormsModule, HttpClientModule],
   providers: [
-    { provide: ErrorHandler, useClass: BookTrackerErrorHandlerService }
+    { provide: ErrorHandler, useClass: BookTrackerErrorHandlerService },
+    { provide: HTTP_INTERCEPTORS , useClass:ContentTypeInterceptor , multi:true},
+    { provide: HTTP_INTERCEPTORS , useClass:LogResponseInterceptor , multi:true}
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}
