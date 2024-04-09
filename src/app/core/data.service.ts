@@ -12,6 +12,7 @@ import { Observable, catchError, map, tap, throwError } from 'rxjs';
 import { OldBook } from '../models/oldBook';
 import { BookTrackerError } from '../models/book-tracker-error';
 import { CONTENT_TYPE } from './Interceptors/content-interceptor';
+import { CACHEABLE } from './Interceptors/cache-interceptor';
 @Injectable({
   providedIn: 'root',
 })
@@ -27,7 +28,9 @@ export class DataService {
   getAllReaders(): Observable<Reader[] | BookTrackerError> {
     return this._http
       .get<Reader[]>('/api/readers', {
-        context: new HttpContext().set(CONTENT_TYPE, 'application/jsonPatch'),
+        context: new HttpContext()
+        .set(CONTENT_TYPE, 'application/jsonPatch')
+        .set(CACHEABLE ,false),
       })
       .pipe(catchError((err: HttpErrorResponse) => this.handleHttpError(err)));
   }
