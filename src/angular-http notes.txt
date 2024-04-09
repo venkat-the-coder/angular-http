@@ -40,4 +40,20 @@ why using interceptor?
     { provide: HTTP_INTERCEPTORS , useClass:LogResponseInterceptor , multi:true}
 
 
-Configuring the Interceptors
+Configuring the Interceptors --> in the provide array setting up httpcontexttoken
+
+export const CONTENT_TYPE = new httpcontexttoken<type>(()=> returens somthing  )
+
+req.context.get()
+context.set(token , 'value');
+
+
+Benefits of Caching 
+
+1. to imporove peformace of the http request
+2. reduce network utilization
+
+
+Two common types of caching 
+1. browser caching 
+2. server sied caching

@@ -13,6 +13,7 @@ import { FormsModule } from '@angular/forms';
 import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http'
 import { ContentTypeInterceptor } from './core/Interceptors/content-interceptor';
 import { LogResponseInterceptor } from './core/Interceptors/logresponse-interceptor';
+import { CacheInterceptor } from './core/Interceptors/cache-interceptor';
 
 @NgModule({
   declarations: [
@@ -27,7 +28,9 @@ import { LogResponseInterceptor } from './core/Interceptors/logresponse-intercep
   providers: [
     { provide: ErrorHandler, useClass: BookTrackerErrorHandlerService },
     { provide: HTTP_INTERCEPTORS , useClass:ContentTypeInterceptor , multi:true},
-    { provide: HTTP_INTERCEPTORS , useClass:LogResponseInterceptor , multi:true}
+    { provide: HTTP_INTERCEPTORS , useClass:LogResponseInterceptor , multi:true},
+    { provide: HTTP_INTERCEPTORS , useClass:CacheInterceptor , multi:true}
+
   ],
   bootstrap: [AppComponent],
 })
